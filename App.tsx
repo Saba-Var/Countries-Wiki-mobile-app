@@ -1,15 +1,18 @@
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Home, CountryDetails, SearchCountry } from '@/screens'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { NavigationContainer } from '@react-navigation/native'
 import { PaperProvider } from 'react-native-paper'
-import { Home, CountryDetails } from '@/screens'
 import { Appbar } from 'react-native-paper'
 import { MapModal } from '@/components'
+import type { Navigate } from './types'
 
 const RootStack = createNativeStackNavigator()
 const MainStack = createNativeStackNavigator()
 
 const MainStackScreen = () => {
+  const navigation = useNavigation<Navigate>()
+
   return (
     <MainStack.Navigator>
       <MainStack.Screen
@@ -17,10 +20,15 @@ const MainStackScreen = () => {
         component={Home}
         options={{
           title: '🌐 Countries Wiki',
-          headerRight: () => <Appbar.Action icon='magnify' />,
+          headerRight: () => (
+            <Appbar.Action
+              icon='magnify'
+              onPress={() => navigation.navigate('SearchCountry')}
+            />
+          ),
         }}
       />
-
+      <MainStack.Screen name='SearchCountry' component={SearchCountry} />
       <MainStack.Screen name='CountryDetails' component={CountryDetails} />
     </MainStack.Navigator>
   )
@@ -43,8 +51,7 @@ const App = () => {
                 headerShown: false,
               }}
             />
-
-            <RootStack.Screen component={MapModal} name='MapModal' />
+            <RootStack.Screen name='MapModal' component={MapModal} />
           </RootStack.Navigator>
         </NavigationContainer>
       </PaperProvider>
