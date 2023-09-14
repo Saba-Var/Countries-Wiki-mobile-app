@@ -8,7 +8,7 @@ const CountryInfoCard: React.FC<CountryInfoCardProps> = ({ countryInfo }) => {
   const { navigate } = useNavigation<Navigate<CountryInfoCardProps>>()
 
   return (
-    <Card style={styles.container} mode='elevated'>
+    <Card style={styles.container} mode='outlined'>
       <Card.Title
         title={countryInfo.name.common}
         subtitle={countryInfo.region}

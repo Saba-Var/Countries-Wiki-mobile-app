@@ -87,8 +87,12 @@ export interface CountryInfo {
   }
 }
 
-export type Navigate<T> = {
-  navigate: (screen: string, params: T) => void
+export type Navigate<
+  T = {
+    [key: string]: string
+  },
+> = {
+  navigate: (screen: string, params?: T) => void
   setOptions: (options: { title: string }) => void
 }
 
