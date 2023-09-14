@@ -1,14 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { StyleSheet, Text, View } from 'react-native'
+import { PaperProvider } from 'react-native-paper'
+import { StatusBar } from 'expo-status-bar'
 
-export default function App() {
+const queryClient = new QueryClient()
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>
+        <View style={styles.container}>
+          <Text>Open up App.tsx to start working on your app!</Text>
+          <StatusBar style='auto' />
+        </View>
+      </PaperProvider>
+    </QueryClientProvider>
+  )
 }
+
+export default App
 
 const styles = StyleSheet.create({
   container: {
@@ -17,4 +27,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
