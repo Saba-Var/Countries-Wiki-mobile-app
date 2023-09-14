@@ -1,18 +1,14 @@
-import { Avatar, Button, Card } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { Button, Card } from 'react-native-paper'
 import { CountryInfoCardProps } from './types'
-
-const LeftContent = (props) => <Avatar.Icon {...props} icon='folder' />
+import { StyleSheet } from 'react-native'
+import type { Navigate } from '@/types'
 
 const CountryInfoCard: React.FC<CountryInfoCardProps> = ({ countryInfo }) => {
+  const { navigate } = useNavigation<Navigate<CountryInfoCardProps>>()
+
   return (
-    <Card
-      style={{
-        marginTop: 25,
-        width: '90%',
-        alignSelf: 'center',
-      }}
-      mode='elevated'
-    >
+    <Card style={styles.container} mode='elevated'>
       <Card.Title
         title={countryInfo.name.common}
         subtitle={countryInfo.region}
@@ -20,25 +16,37 @@ const CountryInfoCard: React.FC<CountryInfoCardProps> = ({ countryInfo }) => {
 
       <Card.Cover
         source={{ uri: countryInfo.flags.png }}
-        style={{
-          backgroundColor: 'transparent',
-          paddingHorizontal: 12,
-        }}
+        style={styles.flagCover}
       />
 
       <Card.Actions>
         <Button
-          style={{
-            marginTop: 10,
-          }}
+          onPress={() => navigate('CountryDetails', { countryInfo })}
+          style={styles.readMoreButton}
           mode='contained-tonal'
-          onPress={() => console.log('Pressed')}
         >
-          Read More
+          Details
         </Button>
       </Card.Actions>
     </Card>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'center',
+    marginTop: 25,
+    width: '90%',
+  },
+
+  flagCover: {
+    backgroundColor: 'transparent',
+    paddingHorizontal: 12,
+  },
+
+  readMoreButton: {
+    marginTop: 10,
+  },
+})
 
 export default CountryInfoCard

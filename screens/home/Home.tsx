@@ -1,5 +1,5 @@
+import { View, FlatList, StyleSheet } from 'react-native'
 import { CountryInfoCard, Loader } from '@/components'
-import { View, FlatList } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import useHome from './useHome'
 
@@ -7,7 +7,7 @@ const Home = () => {
   const { allCountriesData, isLoading, onRefresh } = useHome()
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={styles.container}>
       <StatusBar style='auto' />
 
       {isLoading ? (
@@ -24,5 +24,9 @@ const Home = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center' },
+})
 
 export default Home

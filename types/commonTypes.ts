@@ -84,3 +84,7 @@ export interface CountryInfo {
     regex: string
   }
 }
+
+export type Navigate<T> = {
+  navigate: (screen: string, params: T) => void
+}
