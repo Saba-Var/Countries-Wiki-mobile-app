@@ -1,14 +1,20 @@
-import { Card, List, Text, MD2Colors } from 'react-native-paper'
+import { Card, List, Text, MD2Colors, Button } from 'react-native-paper'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import useCountryDetails from './useCountryDetails'
-import { View, StyleSheet } from 'react-native'
-import { InfoText } from '@/components'
+import { InfoText, MapModal } from '@/components'
 
 const CountryDetails = () => {
-  const { countryInfo, formattedCountryArea, currencies } = useCountryDetails()
+  const {
+    formattedCountryArea,
+    setShowMapModal,
+    showMapModal,
+    countryInfo,
+    currencies,
+  } = useCountryDetails()
 
   return (
-    <View style={styles.container}>
-      <Card.Cover source={{ uri: countryInfo.flags.png }} style={{}} />
+    <ScrollView style={styles.container}>
+      <Card.Cover source={{ uri: countryInfo.flags.png }} />
 
       <View style={styles.infoTextsContainer}>
         <InfoText label='Official Name' value={countryInfo.name.official} />
@@ -24,17 +30,36 @@ const CountryDetails = () => {
 
         {currencies.map((currency) => (
           <List.Item
-            left={() => (
-              <Text style={{ fontWeight: 'bold' }}>{currency.symbol}</Text>
-            )}
             style={{ paddingVertical: 0 }}
+            key={currency.name}
+            left={() => (
+              <Text variant='headlineSmall' style={{ fontWeight: 'bold' }}>
+                {currency.symbol}
+              </Text>
+            )}
             title={
               <Text style={{ color: MD2Colors.grey800 }}>{currency.name}</Text>
             }
           />
         ))}
       </List.Section>
-    </View>
+
+      <MapModal
+        longitude={countryInfo.latlng[1]}
+        latitude={countryInfo.latlng[0]}
+        setShow={setShowMapModal}
+        show={showMapModal}
+      />
+
+      <Button
+        onPress={() => setShowMapModal(true)}
+        style={{ marginTop: 15 }}
+        mode='outlined'
+        icon='map'
+      >
+        Show {countryInfo.name.common} on map
+      </Button>
+    </ScrollView>
   )
 }
 
@@ -42,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 15,
-    marginTop: 30,
+    paddingTop: 30,
   },
 
   infoTextsContainer: {

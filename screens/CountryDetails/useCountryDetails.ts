@@ -1,8 +1,10 @@
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useLayoutEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo, useState } from 'react'
 import { CountryInfo } from '@/types'
 
 const useCountryDetails = () => {
+  const [showMapModal, setShowMapModal] = useState(false)
+
   const navigation = useNavigation()
   const route = useRoute()
 
@@ -23,11 +25,17 @@ const useCountryDetails = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: countryInfo.name.common,
+      title: `${countryInfo.name.common} ${countryInfo.flag}`,
     })
   }, [navigation, countryInfo.name.common])
 
-  return { countryInfo, formattedCountryArea, currencies }
+  return {
+    formattedCountryArea,
+    setShowMapModal,
+    showMapModal,
+    countryInfo,
+    currencies,
+  }
 }
 
 export default useCountryDetails

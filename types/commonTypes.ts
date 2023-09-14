@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react'
+
 export interface CountryInfo {
   name: {
     common: string
@@ -88,3 +90,5 @@ export interface CountryInfo {
 export type Navigate<T> = {
   navigate: (screen: string, params: T) => void
 }
+
+export type SetState<T> = Dispatch<SetStateAction<T>>
