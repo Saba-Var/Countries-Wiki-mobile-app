@@ -1,30 +1,23 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { StyleSheet, Text, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 import { PaperProvider } from 'react-native-paper'
-import { StatusBar } from 'expo-status-bar'
+import { Home } from '@/screens'
 
-const queryClient = new QueryClient()
+const Stack = createNativeStackNavigator()
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={new QueryClient()}>
       <PaperProvider>
-        <View style={styles.container}>
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <StatusBar style='auto' />
-        </View>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen component={Home} name='🌐 Countries Wiki' />
+          </Stack.Navigator>
+        </NavigationContainer>
       </PaperProvider>
     </QueryClientProvider>
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
