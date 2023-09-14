@@ -1,11 +1,9 @@
+import type { CountryInfo, Navigate, MapNavigationData } from '@/types'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useLayoutEffect, useMemo, useState } from 'react'
-import { CountryInfo } from '@/types'
+import { useLayoutEffect, useMemo } from 'react'
 
 const useCountryDetails = () => {
-  const [showMapModal, setShowMapModal] = useState(false)
-
-  const navigation = useNavigation()
+  const navigation = useNavigation<Navigate<MapNavigationData>>()
   const route = useRoute()
 
   const { countryInfo } = route.params as { countryInfo: CountryInfo }
@@ -31,10 +29,9 @@ const useCountryDetails = () => {
 
   return {
     formattedCountryArea,
-    setShowMapModal,
-    showMapModal,
     countryInfo,
     currencies,
+    navigation,
   }
 }
 

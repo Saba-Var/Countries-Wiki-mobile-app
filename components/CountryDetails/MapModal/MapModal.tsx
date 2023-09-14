@@ -1,24 +1,14 @@
 import MapView from 'react-native-maps'
-import { MapModalProps } from './types'
-import { Modal } from 'react-native'
+import useMapModal from './useMapModal'
+import { View } from 'react-native'
 
-const MapModal: React.FC<MapModalProps> = ({
-  longitude,
-  latitude,
-  setShow,
-  show,
-}) => {
+const MapModal = () => {
+  const { latitude, longitude } = useMapModal()
+
   return (
-    <Modal
-      onRequestClose={() => setShow((prev) => !prev)}
-      animationType='slide'
-      transparent={true}
-      visible={show}
-    >
+    <View style={{ flex: 1 }}>
       <MapView
-        style={{
-          flex: 1,
-        }}
+        style={{ flex: 1 }}
         initialRegion={{
           longitudeDelta: 5,
           latitudeDelta: 5,
@@ -26,7 +16,7 @@ const MapModal: React.FC<MapModalProps> = ({
           latitude,
         }}
       />
-    </Modal>
+    </View>
   )
 }
 

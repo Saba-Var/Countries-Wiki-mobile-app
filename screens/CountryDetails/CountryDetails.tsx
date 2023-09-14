@@ -1,16 +1,11 @@
 import { Card, List, Text, MD2Colors, Button } from 'react-native-paper'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import useCountryDetails from './useCountryDetails'
-import { InfoText, MapModal } from '@/components'
+import { InfoText } from '@/components'
 
 const CountryDetails = () => {
-  const {
-    formattedCountryArea,
-    setShowMapModal,
-    showMapModal,
-    countryInfo,
-    currencies,
-  } = useCountryDetails()
+  const { formattedCountryArea, countryInfo, currencies, navigation } =
+    useCountryDetails()
 
   return (
     <ScrollView style={styles.container}>
@@ -44,15 +39,14 @@ const CountryDetails = () => {
         ))}
       </List.Section>
 
-      <MapModal
-        longitude={countryInfo.latlng[1]}
-        latitude={countryInfo.latlng[0]}
-        setShow={setShowMapModal}
-        show={showMapModal}
-      />
-
       <Button
-        onPress={() => setShowMapModal(true)}
+        onPress={() =>
+          navigation.navigate('MapModal', {
+            latitude: countryInfo.latlng[0],
+            longitude: countryInfo.latlng[1],
+            title: `${countryInfo.name.common} ${countryInfo.flag}`,
+          })
+        }
         style={{ marginTop: 15 }}
         mode='outlined'
         icon='map'
