@@ -1,10 +1,9 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Home, CountryDetails, SearchCountry } from '@/screens'
+import { Home, CountryDetails, SearchCountry, MapModal } from '@/screens'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { PaperProvider } from 'react-native-paper'
 import { Appbar } from 'react-native-paper'
-import { MapModal } from '@/components'
 import type { Navigate } from './types'
 
 const RootStack = createNativeStackNavigator()
