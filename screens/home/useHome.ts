@@ -1,13 +1,17 @@
+import { useQuery, useQueryClient } from 'react-query'
 import { allCountriesRequest } from '@/services'
-import { useQuery } from 'react-query'
 
 const useHome = () => {
-  const { data: allCountriesData } = useQuery(
+  const queryClient = useQueryClient()
+
+  const { data: allCountriesData, isLoading } = useQuery(
     'allCountries',
     allCountriesRequest,
   )
 
-  return { allCountriesData: allCountriesData?.data }
+  const onRefresh = () => queryClient.invalidateQueries('allCountries')
+
+  return { allCountriesData: allCountriesData?.data, isLoading, onRefresh }
 }
 
 export default useHome

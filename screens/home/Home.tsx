@@ -1,21 +1,26 @@
-import { View, Text, FlatList } from 'react-native'
-import { CountryInfoCard } from '@/components'
+import { CountryInfoCard, Loader } from '@/components'
+import { View, FlatList } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import useHome from './useHome'
 
 const Home = () => {
-  const { allCountriesData } = useHome()
+  const { allCountriesData, isLoading, onRefresh } = useHome()
 
   return (
-    <View>
-      <Text>Home</Text>
+    <View style={{ flex: 1, justifyContent: 'center' }}>
       <StatusBar style='auto' />
 
-      <FlatList
-        renderItem={({ item }) => <CountryInfoCard countryInfo={item} />}
-        keyExtractor={(item) => item.name.official}
-        data={allCountriesData}
-      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <FlatList
+          renderItem={({ item }) => <CountryInfoCard countryInfo={item} />}
+          keyExtractor={(item) => item.name.official}
+          data={allCountriesData}
+          refreshing={isLoading}
+          onRefresh={onRefresh}
+        />
+      )}
     </View>
   )
 }
