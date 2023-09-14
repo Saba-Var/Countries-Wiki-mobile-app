@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react'
+
 export interface CountryInfo {
   name: {
     common: string
@@ -87,4 +89,13 @@ export interface CountryInfo {
 
 export type Navigate<T> = {
   navigate: (screen: string, params: T) => void
+  setOptions: (options: { title: string }) => void
+}
+
+export type SetState<T> = Dispatch<SetStateAction<T>>
+
+export type MapNavigationData = {
+  longitude: number
+  latitude: number
+  title: string
 }
