@@ -28,6 +28,7 @@ const MainStackScreen = () => {
           ),
         }}
       />
+      <MainStack.Screen name='SearchCountry' component={SearchCountry} />
       <MainStack.Screen name='CountryDetails' component={CountryDetails} />
     </MainStack.Navigator>
   )
@@ -51,7 +52,6 @@ const App = () => {
               }}
             />
             <RootStack.Screen name='MapModal' component={MapModal} />
-            <RootStack.Screen name='SearchCountry' component={SearchCountry} />
           </RootStack.Navigator>
         </NavigationContainer>
       </PaperProvider>
