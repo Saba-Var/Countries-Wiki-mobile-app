@@ -2,9 +2,12 @@ import { allCountriesRequest } from '@/services'
 import { useQuery } from 'react-query'
 
 const useHome = () => {
-  const { data } = useQuery('allCountries', allCountriesRequest)
+  const { data: allCountriesData } = useQuery(
+    'allCountries',
+    allCountriesRequest,
+  )
 
-  return {}
+  return { allCountriesData: allCountriesData?.data }
 }
 
 export default useHome
